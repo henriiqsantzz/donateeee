@@ -17,35 +17,42 @@
   gtag('config', 'G-L2Y326BLMX');
 </script>
 
-<!-- TikTok Pixel Code Start -->
 <script>
 !function (w, d, t) {
   w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
 var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
 ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
 
-
   ttq.load('D6ROQ3BC77UA8MCFBSDG');
   ttq.page();
 }(window, document, 'ttq');
 </script>
-<!-- TikTok Pixel Code End -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // garante que o pixel está carregado
+    // garante que o pixel do FB está carregado
     if (typeof fbq !== 'function') return;
 
     var idVaquinha   = 212;
     var nomeCampanha = "Ajude a Casa Geriátrica São Mateus";
 
     fbq('track', 'AddToCart', {
-      value: 0,                 // ainda não sabemos o valor da doação
+      value: 0,                 
       currency: 'BRL',
       content_name: nomeCampanha,
       content_category: 'Vaquinha',
       content_ids: ['vaquinha_' + idVaquinha],
       content_type: 'product'
     });
+
+    // EVENTO TIKTOK 1: ViewContent (Usuário acessou a página da vaquinha)
+    if (typeof ttq !== 'undefined') {
+      ttq.track('ViewContent', {
+        content_name: nomeCampanha,
+        content_id: idVaquinha,
+        content_type: 'product',
+        currency: 'BRL'
+      });
+    }
   });
   </script>
 
@@ -671,7 +678,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 Criada em 02 de fev. de 2026              </span>
 
               <span class="basis-full mt-2 lg:hidden only-mobile" style="width: 100%;">
-                <button id="redirect-quero-doar" class="btn-donation max-w-xs redirect-quero-doar">Quero Ajudar 🙏</button>
+                <button id="redirect-quero-doar-mobile" class="btn-donation max-w-xs redirect-quero-doar">Quero Ajudar 🙏</button>
               </span>
  
             </div>
@@ -1004,15 +1011,6 @@ AJUDAR A CASA SÃO MATEUS 💙
 
     	<footer class="bg-gray-800 text-white pt-10 pb-6">
 				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-						<div class="col-span-1 md:col-span-1">
-
-							 
-							</div>
-						 
-					 
-						 
-					</div>
 					<div class="mt-8 border-t border-gray-700 pt-6">
 						<p class="text-sm text-gray-300 text-center">© 2026 Projeto Mãos Que Acolhem<br> Todos os direitos reservados.</p>
 					</div>
@@ -1044,7 +1042,7 @@ function showNotification(msg, erro = false) {
 </script>
 
 <script>
-// Seleção de valores
+// Seleção de valores com disparo de evento do TikTok
 document.querySelectorAll('.valor-btn').forEach(btn => {
   btn.addEventListener('click', function() {
     document.querySelectorAll('.valor-btn').forEach(b => {
@@ -1056,6 +1054,15 @@ document.querySelectorAll('.valor-btn').forEach(btn => {
 
     const valor = this.dataset.valor || this.textContent.replace(/[^\d,.-]/g,'').replace(/\./g,'').replace(',', '.');
     document.getElementById('valor-doacao').value = valor;
+
+    // EVENTO TIKTOK 3: ClickButton (Intenção de Valor)
+    if (typeof ttq !== 'undefined') {
+      ttq.track('ClickButton', { 
+        content_name: 'Selecionou Valor: R$ ' + valor,
+        value: parseFloat(valor),
+        currency: 'BRL'
+      });
+    }
   });
 });
 </script>
@@ -1082,10 +1089,6 @@ anonCheckbox.addEventListener('change', function() {
     return c;
   }
 
-  /**
-   * showToast({ title, message, type = 'info', duration = 4000 })
-   * type: 'info' | 'success' | 'warning' | 'error'
-   */
   function showToast({ title, message, type = 'info', duration = 4000 }) {
     const container = ensureToastContainer();
     const toast = document.createElement('div');
@@ -1094,13 +1097,7 @@ anonCheckbox.addEventListener('change', function() {
     toast.setAttribute('role', 'alert');
     toast.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
 
-    // ícone simples por tipo (emoji para manter leve)
-    const icons = {
-      info: 'ℹ️',
-      success: '✅',
-      warning: '⚠️',
-      error: '⛔'
-    };
+    const icons = { info: 'ℹ️', success: '✅', warning: '⚠️', error: '⛔' };
 
     toast.innerHTML = `
       <div class="toast__icon" aria-hidden="true">${icons[type] || 'ℹ️'}</div>
@@ -1111,16 +1108,11 @@ anonCheckbox.addEventListener('change', function() {
       <button class="toast__close" aria-label="Fechar notificação">×</button>
     `;
 
-    // remover ao fim da animação out
     toast.addEventListener('animationend', (e) => {
-      if (e.animationName === 'toast-out') {
-        toast.remove();
-      }
+      if (e.animationName === 'toast-out') { toast.remove(); }
     });
 
-    // botão fechar manual
     toast.querySelector('.toast__close').addEventListener('click', () => {
-      // dispara apenas a animação de saída imediatamente
       toast.style.animation = 'toast-out .25s ease-in forwards';
     });
 
@@ -1132,12 +1124,11 @@ anonCheckbox.addEventListener('change', function() {
 const form = document.getElementById('form-doacao');
 
 form.addEventListener('submit', function(e){
-  e.preventDefault(); // Impede o envio padrão da página
+  e.preventDefault(); 
 
   let valor = form.querySelector('[name="valor-doacao"]').value.trim();
   let nome = form.querySelector('[name="nome_doador"]').value.trim();
   
-  // Limpa a formatação para virar número real (ex: 50.00)
   let valorNum = parseFloat(valor.replace(/\./g,'').replace(',', '.'));
 
   if (!valor || isNaN(valorNum) || valorNum < 30 || !nome) {
@@ -1150,17 +1141,14 @@ form.addEventListener('submit', function(e){
     return false;
   }
 
-  // Ativa a tela de carregamento
   document.getElementById('overlay-loading').style.display = 'flex';
 
-  // Monta os parâmetros que a página do PIX vai precisar ler
   const params = new URLSearchParams();
   params.append('value', valorNum);
   params.append('nome_doador', nome);
   params.append('id_vaquinha', form.querySelector('[name="id_vaquinha"]').value);
   params.append('nome_vaquinha', form.querySelector('[name="nome_vaquinha"]').value);
   
-  // Puxa as UTMs e tracking do Facebook/TikTok
   const utms = ['utm_source','utm_campaign','utm_medium','utm_content','utm_term','fbclid','fbc','fbp'];
   utms.forEach(utm => {
     let val = form.querySelector(`[name="${utm}"]`)?.value;
@@ -1169,10 +1157,20 @@ form.addEventListener('submit', function(e){
     }
   });
 
-  // Gera um ID de transação único
   params.append('id_transacao', 'REF-' + new Date().getTime());
 
-  // REDIRECIONAMENTO (Ajuste o "pagamento.html" para o nome exato do seu arquivo de PIX)
+  // EVENTO TIKTOK 4: AddToCart (Usuário passou na validação e vai gerar o Pix)
+  if (typeof ttq !== 'undefined') {
+    ttq.track('AddToCart', {
+      content_name: form.querySelector('[name="nome_vaquinha"]').value,
+      content_id: form.querySelector('[name="id_vaquinha"]').value,
+      content_type: 'product',
+      value: valorNum,
+      currency: 'BRL'
+    });
+  }
+
+  // Redirecionamento 
   setTimeout(() => {
     window.location.href = `/pagamento?${params.toString()}`;
   }, 800); 
@@ -1193,15 +1191,12 @@ document.addEventListener('DOMContentLoaded', function () {
     inputValor.value = String(v);
   }
 
-  // Define valor inicial 50 caso vazio
   if (inputValor && !inputValor.value.trim()) {
     setDisplayed(50);
   }
 
-  // Botões de valores rápidos
   btnsValor.forEach(btn => {
     btn.addEventListener('click', () => {
-      // estilo visual
       btnsValor.forEach(b => {
         b.classList.remove('bg-teal-500','text-white');
         b.classList.add('bg-gray-100','text-gray-800');
@@ -1209,13 +1204,11 @@ document.addEventListener('DOMContentLoaded', function () {
       btn.classList.remove('bg-gray-100','text-gray-800');
       btn.classList.add('bg-teal-500','text-white');
 
-      // altera valor
       const valor = parseBRL(btn.dataset.valor);
       setDisplayed(valor);
     });
   });
 
-  // Destaca o padrão (R$ 50)
   if (btnDefault) {
     btnsValor.forEach(b => {
       b.classList.remove('bg-teal-500','text-white');
@@ -1227,8 +1220,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
-
-
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const triggers = document.querySelectorAll('.redirect-quero-doar');
@@ -1239,11 +1230,15 @@ document.addEventListener('DOMContentLoaded', function () {
       trigger.addEventListener('click', function (e) {
         e.preventDefault();
 
-        // Se não existir header fixo:
-        // target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // EVENTO TIKTOK 2: ClickButton (Scroll Intenção)
+        if (typeof ttq !== 'undefined') {
+          ttq.track('ClickButton', { 
+            content_name: 'Botão Quero Ajudar (Scroll)',
+            currency: 'BRL'
+          });
+        }
 
-        // Versão com pequeno offset (útil se existir navbar fixa no topo):
-        const offset = 16; // ajuste conforme o tamanho do seu header (ex.: 72)
+        const offset = 16; 
         const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
 
         window.scrollTo({ top, behavior: 'smooth' });
@@ -1251,79 +1246,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
-</script>
-<script>
-  function copiarChavePix(valor, botao) {
-
-    // Função visual: troca texto para "Copiado!"
-    const marcarComoCopiado = () => {
-      if (botao) {
-        const textoOriginal = botao.innerHTML;
-
-        botao.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7.5 7.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6 10.793l7.146-7.147a.5.5 0 0 1 .708 0z"/>
-          </svg>
-          Copiado!
-        `;
-
-        botao.classList.add("bg-emerald-600"); // deixa verdinho
-
-        setTimeout(() => {
-          botao.innerHTML = textoOriginal;
-          botao.classList.remove("bg-emerald-600");
-        }, 2000);
-      }
-    };
-
-    // Toast de sucesso
-    const onSuccess = () => {
-      marcarComoCopiado();
-
-      showToast({
-        title: 'Chave PIX copiada',
-        message: 'Agora é só colar no app do seu banco. 🙌',
-        type: 'success',
-        duration: 3000
-      });
-    };
-
-    // Toast de erro
-    const onError = (err) => {
-      console.error('Erro ao copiar chave PIX:', err);
-      showToast({
-        title: 'Não foi possível copiar',
-        message: 'Copie a chave manualmente.',
-        type: 'error',
-        duration: 5000
-      });
-    };
-
-    // API moderna
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(valor)
-        .then(onSuccess)
-        .catch(onError);
-    } else {
-      // Fallback\
-      const textarea = document.createElement('textarea');
-      textarea.value = valor;
-      textarea.style.position = 'fixed';
-      textarea.style.left = '-9999px';
-      document.body.appendChild(textarea);
-      textarea.select();
-
-      try {
-        const ok = document.execCommand('copy');
-        if (ok) onSuccess();
-        else onError();
-      } catch (err) {
-        onError(err);
-      }
-
-      document.body.removeChild(textarea);
-    }
-  }
 </script>
 
 </body></html>
