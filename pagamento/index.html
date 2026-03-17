@@ -1,5 +1,15 @@
 <!DOCTYPE html><html lang="pt-br"><head>
 
+  <script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+
+  ttq.load('D6ROQ3BC77UA8MCFBSDG');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-L2Y326BLMX"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -141,7 +151,7 @@
             </svg>
         </button>
         <nav class="mt-8 flex flex-col space-y-4">
-            <a class="px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-500 hover:bg-gray-50" href="#>Início</a>
+            <a class="px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-500 hover:bg-gray-50" href="#">Início</a>
             <a class="px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-500 hover:bg-gray-50" href="#">Sobre</a>
             <a class="px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-500 hover:bg-gray-50" href="#">Explorar Vaquinhas</a>
             <a style="display: none;" class="px-3 py-2 rounded-md text-base font-medium bg-teal-500 text-white hover:bg-teal-600" href="#">Criar Campanha</a>
@@ -265,32 +275,59 @@ document.addEventListener('DOMContentLoaded', function() {
 </footer>
 
 <script>
+  // Helper para pegar params da URL
+  function qp(name) {
+    return new URLSearchParams(location.search).get(name);
+  }
+
+  // Captura os dados da doação para enviar ao TikTok
+  const valorDoacao = parseFloat(qp('value') || 30);
+  const nomeVaquinha = qp('nome_vaquinha') || "Doação Instituto Mãos do Bem";
+  const idVaquinha = qp('id_vaquinha') || "N/A";
+
+  // ==========================================
+  // EVENTO 1: INICIO DE CHECKOUT (Página carregou)
+  // ==========================================
+  if (typeof ttq !== 'undefined') {
+    ttq.track('InitiateCheckout', {
+      content_name: nomeVaquinha,
+      content_id: idVaquinha,
+      value: valorDoacao,
+      currency: 'BRL'
+    });
+  }
+
   function copiarPix() {
     var pix = document.getElementById('pixCodeBox').innerText.trim();
-    if (!pix || pix.includes("Gerando")) return;
+    if (!pix || pix.includes("Gerando") || pix.includes("Erro")) return;
 
     navigator.clipboard.writeText(pix).then(function () {
       var btn = document.querySelector('.copy-btn');
       var original = btn.innerHTML;
       btn.innerHTML = '✅ CÓDIGO COPIADO!';
       setTimeout(function(){ btn.innerHTML = original; }, 1400);
+
+      // ==========================================
+      // EVENTO: COPIOU O PIX
+      // ==========================================
+      if (typeof ttq !== 'undefined') {
+        ttq.track('ClickButton', {
+          content_name: 'Copiar Pix',
+          value: valorDoacao,
+          currency: 'BRL'
+        });
+      }
     });
   }
 
-  // Helper para pegar params da URL
-  function qp(name) {
-    return new URLSearchParams(location.search).get(name);
-  }
-
   // ==========================================================
-  // CHAVE DA API PARADISE (CUIDADO AO EXPOR ISSO NO FRONTEND)
+  // CHAVE DA API PARADISE 
   // ==========================================================
   const PARADISE_API_KEY = 'sk_ab34b5dbce3ccce3e33070e6dcab26344a4c67b88706d5164ec01fb08eeaabac'; 
   let idTransacaoParadise = null; 
 
   async function gerarPixParadise() {
-    const valorOriginal = parseFloat(qp('value') || 30); 
-    const amountEmCentavos = Math.round(valorOriginal * 100);
+    const amountEmCentavos = Math.round(valorDoacao * 100);
 
     const nomeDoador = qp('nome_doador') || "Doador Solidário";
     const emailDoador = qp('email') || "email@exemplo.com"; 
@@ -314,6 +351,7 @@ document.addEventListener('DOMContentLoaded', function() {
     try {
       document.getElementById('pixCodeBox').innerText = "Gerando PIX, aguarde...";
 
+      // Envia os dados para o gateway na Hostinger
       const response = await fetch('https://multi.paradisepags.com/api/v1/transaction.php', {
         method: 'POST',
         headers: {
@@ -339,6 +377,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         idTransacaoParadise = data.transaction_id;
+
+        // ==========================================
+        // EVENTO 2: PEDIDO GERADO (Pix na tela)
+        // ==========================================
+        if (typeof ttq !== 'undefined') {
+          ttq.track('PlaceAnOrder', {
+            content_name: nomeVaquinha,
+            content_id: idVaquinha,
+            value: valorDoacao,
+            currency: 'BRL'
+          });
+        }
+
       } else {
         document.getElementById('pixCodeBox').innerText = "Erro ao gerar PIX.";
         console.error("Erro retornado pela API:", data);
@@ -384,8 +435,24 @@ document.addEventListener('DOMContentLoaded', function() {
       .then(r => r.json())
       .then(data => {
         if (data.status && data.status.toLowerCase() === 'approved') {
-          console.log('[PIX PAGO] Redirecionando para obrigado...');
-          window.location.href = buildObrigadoUrl();
+          console.log('[PIX PAGO] Disparando CompletePayment e redirecionando...');
+          
+          // ==========================================
+          // EVENTO 3: PAGAMENTO CONCLUÍDO (Conversão Real)
+          // ==========================================
+          if (typeof ttq !== 'undefined') {
+            ttq.track('CompletePayment', {
+              content_name: nomeVaquinha,
+              content_id: idVaquinha,
+              value: valorDoacao,
+              currency: 'BRL'
+            });
+          }
+
+          // Dá 500ms pro TikTok registrar a conversão antes de redirecionar para o Obrigado
+          setTimeout(() => {
+            window.location.href = buildObrigadoUrl();
+          }, 500);
         }
       })
       .catch(err => console.error('[ERRO VERIFICANDO STATUS]', err));
@@ -393,7 +460,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.onload = function() {
     gerarPixParadise();
-    setInterval(verificaStatus, 5000);
+    setInterval(verificaStatus, 5000); // Verifica se o Pix foi pago a cada 5 segundos
   };
 </script>
 
