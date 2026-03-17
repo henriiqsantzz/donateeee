@@ -29,22 +29,11 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 </script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // garante que o pixel do FB está carregado
-    if (typeof fbq !== 'function') return;
-
     var idVaquinha   = 212;
     var nomeCampanha = "Ajude a Casa Geriátrica São Mateus";
+	  
 
-    fbq('track', 'AddToCart', {
-      value: 0,                 
-      currency: 'BRL',
-      content_name: nomeCampanha,
-      content_category: 'Vaquinha',
-      content_ids: ['vaquinha_' + idVaquinha],
-      content_type: 'product'
-    });
-
-    // EVENTO TIKTOK 1: ViewContent (Usuário acessou a página da vaquinha)
+    // 1. EVENTO TIKTOK 1: ViewContent (Usuário acessou a página da vaquinha)
     if (typeof ttq !== 'undefined') {
       ttq.track('ViewContent', {
         content_name: nomeCampanha,
@@ -54,7 +43,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       });
     }
   });
-  </script>
+</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
