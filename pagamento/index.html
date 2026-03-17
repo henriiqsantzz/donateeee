@@ -1,0 +1,400 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-L2Y326BLMX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-L2Y326BLMX');
+</script>
+
+  <meta charset="UTF-8">
+  <title>Efetue o pagamento | Instituto Mãos do Bem</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" crossorigin="" href="css/index-DEieeOuM.css">
+
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Poppins', Arial, sans-serif; margin: 0; min-height: 100vh; }
+
+    /* WRAPPER GERAL DA PÁGINA (centraliza o card) */
+    .pix-page-wrapper{ display: flex; justify-content: center; padding: 24px 12px 32px 12px; }
+
+    /* CARD BRANCO PRINCIPAL */
+    .pix-card{ background: #ffffff; border-radius: 22px; padding: 26px 18px 30px 18px; width: 100%; max-width: 420px; }
+
+    /* LOGO NO TOPO DO CARD */
+    .pix-org-header{ display: flex; justify-content: center; margin-bottom: 14px; }
+    .pix-org-header img{ height: 52px; max-width: 100%; }
+
+    /* TÍTULO "Quase lá!" */
+    .pix-title{ text-align: center; font-size: 1.5rem; font-weight: 800; color: #27adec; margin: 0 0 8px 0; }
+
+    /* SUBTÍTULO "Sua doação de R$..." */
+    .pix-subtitle{ text-align: center; font-size: 0.95rem; color: #333333; margin: 0 0 22px 0; line-height: 1.5; }
+    .pix-subtitle strong{ color: #27adec; }
+    .pix-subtitle .pix-highlight{ color: #27adec; font-weight: 700; }
+
+    /* BLOCO DO PASSO 1 */
+    .pix-step-1-title{ font-size: 0.96rem; font-weight: 600; color: #222222; margin-bottom: 6px; }
+    .pix-step-1-title .step-number{ color: #27adec; font-weight: 700; margin-right: 4px; }
+
+    /* "INPUT" do código Pix – mais fino */
+    .pix-code-box{ background: #f6f8fb; border-radius: 12px; border: 1px solid #e1e4ec; padding: 8px 12px; font-size: 0.9rem; color: #777777; display: flex; align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; word-break: normal; height: 40px; max-height: 40px; margin-bottom: 14px; }
+
+    /* BOTÃO COPIAR */
+    .copy-btn{ background: #27adec; color: #ffffff; border: none; padding: 13px 0; width: 100%; border-radius: 12px; font-size: 1.02rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 22px; transition: background 0.16s, transform 0.08s; }
+    .copy-btn svg{ flex-shrink: 0; }
+    .copy-btn:hover{ background: #0061a8; transform: translateY(-1px); }
+    .copy-btn:active{ transform: translateY(0); }
+
+    /* LISTA DAS ETAPAS 2, 3, 4 */
+    .pix-steps-list{ margin: 0; padding: 0; list-style: none; }
+    .pix-step-item{ display: flex; align-items: flex-start; gap: 10px; font-size: 0.93rem; color: #313131; margin-bottom: 10px; }
+    .pix-step-icon{ font-size: 1.16rem; color: #27adec; margin-top: 2px; min-width: 20px; text-align: center; }
+    .pix-step-text .step-number{ color: #27adec; font-weight: 700; margin-right: 4px; }
+    .pix-step-text{ line-height: 1.5; }
+    .pix-recebedor{ margin-top: 2px; }
+    .pix-recebedor span{ font-weight: 600; }
+
+    /* LINHA DIVISÓRIA ANTES DO QR */
+    .pix-divider{ border: 0; border-top: 1px solid #e6e6e6; margin: 18px 0 16px 0; }
+
+    /* SEÇÃO QR CODE */
+    .pix-qr-section{ text-align: center; }
+    .pix-qr-wrapper{ display: inline-flex; padding: 12px; border-radius: 16px; border: 1px solid #e3e3e3; background: #ffffff; margin-bottom: 8px; }
+    .pix-qr-wrapper img{ width: 150px; height: 150px; display: block; }
+    .pix-qr-caption{ font-size: 0.82rem; color: #777777; }
+
+    @media (max-width: 480px){ .pix-card{ padding: 24px 16px 28px 16px; border-radius: 20px; } }
+  </style>
+
+  <style>
+    .botao-criar-campanha{ background-color: #e63539; color: white; }
+    .botao-explorar{ background-color: #ebebeb; color: black; font-weight: 400; }
+    .bg-teal-100{ background-color: #e63539; }
+    .text-teal-600{ color: white; }
+    .bg-teal-500{ background-color: #e63539; }
+    .text-teal-800{ color: white; }
+    .bg-purple-600{ background-color: #e63539; }
+    .text-purple-600{ color: #4d4d4d; }
+    .heading-center{ min-height: 30vh; }
+  </style>
+</head>
+<body>
+
+<style>
+  .so-desktop { display: none; }
+  @media (min-width: 1024px) { .so-desktop { display: block !important; } }
+  .logo{ max-width: 70px; margin-top: 10px; padding: 5px; }
+  #sidebar-mobile { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.5); display: none; align-items: stretch; transition: opacity 0.3s cubic-bezier(.4,0,.2,1); opacity: 0; pointer-events: none; }
+  #sidebar-mobile.open { display: flex; opacity: 1; pointer-events: auto; }
+  #sidebar-mobile .sidebar-content { background: #fff; width: 100vw; max-width: 100vw; height: 100%; box-shadow: 0 10px 40px rgba(0,0,0,0.15); padding: 1.5rem; position: relative; transform: translateX(100%); transition: transform 0.3s cubic-bezier(.4,0,.2,1), opacity 0.25s cubic-bezier(.4,0,.2,1); display: flex; flex-direction: column; opacity: 0.96; }
+  #sidebar-mobile.open .sidebar-content { transform: translateX(0); opacity: 1; }
+  #close-sidebar { position: absolute; top: 1rem; right: 1rem; background: transparent; border: none; cursor: pointer; padding: 0.3rem; }
+  @media (min-width: 768px) { #sidebar-mobile { display: none !important; } }
+  .group:hover .group-hover\:block { display: block; }
+  .group-hover\:block { display: none; }
+</style>
+
+<style>
+  .faixa-sorteio{ width: 100%; background: #16a34a; color: #ffffff; text-align: center; padding: 10px 12px; font-size: 14px; font-weight: 600; letter-spacing: 0.3px; }
+  @media (min-width: 768px){ .faixa-sorteio{ font-size: 15px; padding: 12px; } }
+</style>
+
+<nav class="bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center">
+                <a class="flex items-center" href="https://institutomaosqueacolhem.online">
+                    <span class="ml-2 text-xl font-semibold text-gray-900">
+                        <img class="logo" src="images/logo-maos3.png">
+                    </span>
+                </a>
+            </div>
+            <div class="hidden md:flex items-center space-x-4">
+                <a class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-teal-500 hover:bg-gray-50" href="#">Início</a>
+                <a class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-teal-500 hover:bg-gray-50" href="#">Sobre</a>
+                <a class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-teal-500 hover:bg-gray-50" href="#">Explorar Vaquinhas</a>
+                <a class="px-3 py-2 rounded-md text-sm font-medium bg-teal-500 text-white hover:bg-teal-600" href="#">Criar Campanha</a>
+            </div>
+            <div class="flex md:hidden items-center">
+                <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-teal-500 hover:bg-gray-50 focus:outline-none botao-sidebar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu h-6 w-6">
+                        <line x1="4" x2="20" y1="12" y2="12"></line>
+                        <line x1="4" x2="20" y1="6" y2="6"></line>
+                        <line x1="4" x2="20" y1="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div id="sidebar-mobile">
+    <div class="sidebar-content">
+        <button id="close-sidebar" aria-label="Fechar menu">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <nav class="mt-8 flex flex-col space-y-4">
+            <a class="px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-500 hover:bg-gray-50" href="#>Início</a>
+            <a class="px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-500 hover:bg-gray-50" href="#">Sobre</a>
+            <a class="px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-teal-500 hover:bg-gray-50" href="#">Explorar Vaquinhas</a>
+            <a style="display: none;" class="px-3 py-2 rounded-md text-base font-medium bg-teal-500 text-white hover:bg-teal-600" href="#">Criar Campanha</a>
+        </nav>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.getElementById('sidebar-mobile');
+    const openBtn = document.querySelector('.botao-sidebar');
+    const closeBtn = document.getElementById('close-sidebar');
+    const sidebarContent = sidebar.querySelector('.sidebar-content');
+
+    openBtn.addEventListener('click', function() {
+        sidebar.style.display = 'flex';
+        setTimeout(() => { sidebar.classList.add('open'); }, 10);
+    });
+
+    function closeSidebar() {
+        sidebar.classList.remove('open');
+        sidebarContent.addEventListener('transitionend', function handler(e){
+            if(e.propertyName === 'transform' && !sidebar.classList.contains('open')) {
+                sidebar.style.display = 'none';
+                sidebarContent.removeEventListener('transitionend', handler);
+            }
+        });
+    }
+
+    closeBtn.addEventListener('click', closeSidebar);
+    sidebar.addEventListener('click', function(e) { if (e.target === sidebar) closeSidebar(); });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const userMenu = document.getElementById('dropdown-user');
+    const dropdown = document.getElementById('dropdown-menu');
+    let closeTimeout;
+
+    if(userMenu && dropdown) {
+        userMenu.addEventListener('mouseenter', () => {
+            clearTimeout(closeTimeout);
+            dropdown.style.display = 'block';
+        });
+        userMenu.addEventListener('mouseleave', () => {
+            closeTimeout = setTimeout(() => { dropdown.style.display = 'none'; }, 300);
+        });
+
+        document.getElementById('btn-user-menu').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+            } else {
+                dropdown.style.display = 'block';
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!userMenu.contains(e.target)) { dropdown.style.display = 'none'; }
+        });
+    }
+});
+</script>
+
+<div class="pix-page-wrapper">
+  <div class="pix-card">
+    <h1 class="pix-title">Quase lá!</h1>
+    <p class="pix-subtitle">
+      Sua doação de <strong>R$ 0,00</strong> será confirmada após a
+      <span class="pix-highlight">transferência PIX</span>
+    </p>
+
+    <div class="pix-step-1-title">
+      <span class="step-number">1.</span> Copie o código abaixo:
+    </div>
+    <div id="pixCodeBox" class="pix-code-box" style="user-select: all;">
+      Gerando código Pix...
+    </div>
+
+    <button class="copy-btn" type="button" onclick="copiarPix()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 24 24">
+        <rect x="8" y="8" width="12" height="12" rx="2" stroke="#fff" stroke-width="2"></rect>
+        <rect x="4" y="4" width="12" height="12" rx="2" fill="#ffffff" stroke="#fff" stroke-width="2"></rect>
+      </svg>
+      COPIAR CÓDIGO
+    </button>
+
+    <ul class="pix-steps-list">
+      <li class="pix-step-item">
+        <div class="pix-step-icon">💻</div>
+        <div class="pix-step-text"><span class="step-number">2.</span> Abra o aplicativo ou site do seu banco;</div>
+      </li>
+      <li class="pix-step-item">
+        <div class="pix-step-icon">📋</div>
+        <div class="pix-step-text"><span class="step-number">3.</span> Entre na área PIX e escolha a opção <b>PIX Copia e Cola</b>;</div>
+      </li>
+      <li class="pix-step-item">
+        <div class="pix-step-icon">✅</div>
+        <div class="pix-step-text pix-recebedor"><span class="step-number">4.</span> Ao doar por Pix, aparecerá na tela da transação o nome <b>AMERICAN TAILOR MADE MARK</b>.</div>
+      </li>
+    </ul>
+
+    <hr class="pix-divider">
+
+    <div class="pix-qr-section" id="qrCodeSection" style="display: none;">
+      <div class="pix-qr-wrapper">
+        <img id="qrCodeImg" src="" alt="QR Code PIX">
+      </div>
+      <p class="pix-qr-caption">Escaneie o QR Code com o app do seu banco</p>
+    </div>
+  </div>
+</div>
+
+<footer class="bg-gray-800 text-white pt-10 pb-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mt-8 border-t border-gray-700 pt-6">
+            <p class="text-sm text-gray-300 text-center">© 2026 Projeto Mãos Que Acolhem<br> Todos os direitos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+  function copiarPix() {
+    var pix = document.getElementById('pixCodeBox').innerText.trim();
+    if (!pix || pix.includes("Gerando")) return;
+
+    navigator.clipboard.writeText(pix).then(function () {
+      var btn = document.querySelector('.copy-btn');
+      var original = btn.innerHTML;
+      btn.innerHTML = '✅ CÓDIGO COPIADO!';
+      setTimeout(function(){ btn.innerHTML = original; }, 1400);
+    });
+  }
+
+  // Helper para pegar params da URL
+  function qp(name) {
+    return new URLSearchParams(location.search).get(name);
+  }
+
+  // ==========================================================
+  // CHAVE DA API PARADISE (CUIDADO AO EXPOR ISSO NO FRONTEND)
+  // ==========================================================
+  const PARADISE_API_KEY = 'sk_ab34b5dbce3ccce3e33070e6dcab26344a4c67b88706d5164ec01fb08eeaabac'; 
+  let idTransacaoParadise = null; 
+
+  async function gerarPixParadise() {
+    const valorOriginal = parseFloat(qp('value') || 30); 
+    const amountEmCentavos = Math.round(valorOriginal * 100);
+
+    const nomeDoador = qp('nome_doador') || "Doador Solidário";
+    const emailDoador = qp('email') || "email@exemplo.com"; 
+    const cpfDoador = qp('document') || "00000000000"; 
+    const phoneDoador = qp('phone') || "11999999999"; 
+    const referencia = qp('id_transacao') || "REF-" + new Date().getTime();
+
+    const payload = {
+      amount: amountEmCentavos,
+      description: "Doação Instituto Mãos do Bem",
+      reference: referencia,
+      source: "api_externa", 
+      customer: {
+        name: nomeDoador,
+        email: emailDoador,
+        document: cpfDoador,
+        phone: phoneDoador
+      }
+    };
+
+    try {
+      document.getElementById('pixCodeBox').innerText = "Gerando PIX, aguarde...";
+
+      const response = await fetch('https://multi.paradisepags.com/api/v1/transaction.php', {
+        method: 'POST',
+        headers: {
+          'X-API-Key': PARADISE_API_KEY,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+
+      if (data.status === "success" || data.transaction_id) {
+        const valorFormatado = (data.amount / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        document.querySelector('.pix-subtitle').innerHTML = `Sua doação de <strong>${valorFormatado}</strong> será confirmada após a <span class="pix-highlight">transferência PIX</span>`;
+
+        document.getElementById('pixCodeBox').innerText = data.qr_code;
+
+        const qrSection = document.getElementById('qrCodeSection');
+        const qrImg = document.getElementById('qrCodeImg');
+        if (data.qr_code_base64) {
+          qrImg.src = data.qr_code_base64;
+          qrSection.style.display = 'block';
+        }
+
+        idTransacaoParadise = data.transaction_id;
+      } else {
+        document.getElementById('pixCodeBox').innerText = "Erro ao gerar PIX.";
+        console.error("Erro retornado pela API:", data);
+      }
+
+    } catch (error) {
+      document.getElementById('pixCodeBox').innerText = "Erro de conexão.";
+      console.error("Erro na requisição:", error);
+    }
+  }
+
+  const FORWARD_KEYS = ['id_transacao','value','id_vaquinha','nome_doador','nome_vaquinha','utm_source','utm_campaign','utm_medium','utm_content','utm_term','fbclid','fbc','fbp'];
+
+  (function persistFbpFbc() {
+    const sec = location.protocol === 'https:' ? ';Secure' : '';
+    const now = Math.floor(Date.now()/1000);
+    const fbclid = qp('fbclid');
+    if (qp('fbp')) document.cookie = `_fbp=${qp('fbp')};path=/;max-age=${60*60*24*90};SameSite=Lax${sec}`;
+    if (qp('fbc')) {
+      document.cookie = `_fbc=${qp('fbc')};path=/;max-age=${60*60*24*90};SameSite=Lax${sec}`;
+    } else if (fbclid) {
+      document.cookie = `_fbc=${encodeURIComponent(`fb.1.${now}.${fbclid}`)};path=/;max-age=${60*60*24*90};SameSite=Lax${sec}`;
+    }
+  })();
+
+  function buildObrigadoUrl() {
+    const out = new URLSearchParams();
+    FORWARD_KEYS.forEach(k => {
+      const v = qp(k);
+      if (v !== null && v !== '') out.set(k, v);
+    });
+    if (!out.has('value')) out.set('value', '30');
+    return `../obrigado?${out.toString()}`;
+  }
+
+  function verificaStatus() {
+    if (!idTransacaoParadise) return;
+
+    fetch(`https://multi.paradisepags.com/api/v1/query.php?action=get_transaction&id=${idTransacaoParadise}`, {
+        method: 'GET',
+        headers: { 'X-API-Key': PARADISE_API_KEY }
+    })
+      .then(r => r.json())
+      .then(data => {
+        if (data.status && data.status.toLowerCase() === 'approved') {
+          console.log('[PIX PAGO] Redirecionando para obrigado...');
+          window.location.href = buildObrigadoUrl();
+        }
+      })
+      .catch(err => console.error('[ERRO VERIFICANDO STATUS]', err));
+  }
+
+  window.onload = function() {
+    gerarPixParadise();
+    setInterval(verificaStatus, 5000);
+  };
+</script>
+
+</body></html>
